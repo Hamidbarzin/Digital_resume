@@ -1,18 +1,17 @@
 # 🚀 Deployment Instructions
 
-## ❌ Render Problem
-Render keeps trying to run HTML files with Node.js, causing `SyntaxError: Unexpected token '<'` errors.
+## ✅ Render Static Site Deployment (Recommended)
 
-## ✅ Solution: Use Static Site Deployment
-
-### 1. Render (Static Site)
+### 1. Render (Static Site) - BEST OPTION
 1. Go to [Render Dashboard](https://dashboard.render.com)
-2. Click **"New +"** → **"Static Site"**
-3. Connect your GitHub repository
+2. Click **"New +"** → **"Static Site"** (NOT Web Service!)
+3. Connect your GitHub repository: `Hamidbarzin/Digital_resume`
 4. Settings:
-   - **Build Command**: `echo "Static site - no build needed"`
-   - **Publish Directory**: `./public`
+   - **Build Command**: (leave empty)
+   - **Publish Directory**: `public`
 5. Click **"Create Static Site"**
+
+**Why Static Site?** Your project is a static HTML resume that doesn't need Node.js server.
 
 ### 2. Vercel (Recommended)
 1. Go to [Vercel](https://vercel.com/new)

@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamidreza Barzin - Digital Resume & Business Card</title>
+    <title>Digital Resume & Business Card</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --royal-blue: #1e3a8a;
-            --teal-primary: #0d9488;
-            --teal-secondary: #14b8a6;
-            --silver: #e2e8f0;
-            --platinum: #f8fafc;
-            --dark-navy: #0f172a;
-            --glass-bg: rgba(255, 255, 255, 0.08);
+            --primary: #000000;
+            --secondary: #0a0a0a;
+            --accent: #00d4ff;
+            --premium: #ffffff;
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #cbd5e1;
+            --glass: rgba(0, 0, 0, 0.4);
             --glass-border: rgba(255, 255, 255, 0.15);
-            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --shadow-glow: 0 0 40px rgba(14, 184, 166, 0.2);
+            --gradient-1: #00d4ff;
+            --gradient-2: #8b5cf6;
+            --gradient-3: #f093fb;
+            --gradient-4: #f5576c;
+            --neon-blue: #00f5ff;
+            --neon-purple: #bf00ff;
+            --neon-green: #00ff88;
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.9);
+            --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.4);
+            --shadow-neon: 0 0 20px rgba(0, 245, 255, 0.6);
         }
 
         * {
@@ -29,14 +38,42 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--dark-navy) 0%, #1e293b 25%, #334155 50%, var(--dark-navy) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 25%, #0a0a0a 50%, var(--secondary) 75%, var(--primary) 100%);
             background-attachment: fixed;
-            color: var(--platinum);
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Animated background particles */
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .text-muted { color: var(--text-muted); }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Static background particles */
         body::before {
             content: '';
             position: fixed;
@@ -45,30 +82,32 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(14, 184, 166, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(30, 58, 138, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(226, 232, 240, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(191, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 60% 60%, rgba(102, 126, 234, 0.04) 0%, transparent 50%);
             z-index: -1;
-            animation: backgroundShift 20s ease-in-out infinite;
         }
 
-        @keyframes backgroundShift {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            25% { transform: translateX(-2%) translateY(-1%); }
-            50% { transform: translateX(1%) translateY(-2%); }
-            75% { transform: translateX(-1%) translateY(1%); }
-        }
 
         /* Glassmorphism base */
         .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 24px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-soft), var(--shadow-glow);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass:hover {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            box-shadow: var(--shadow-soft), var(--shadow-neon);
+            transform: translateY(-3px) scale(1.02);
         }
 
         .glass::before {
@@ -88,18 +127,18 @@
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-secondary) 50%, var(--silver) 100%);
+            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 50%, var(--gradient-3) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.6));
         }
 
         .logo-gradient {
-            background: linear-gradient(135deg, var(--royal-blue) 0%, var(--teal-primary) 50%, var(--teal-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #000000;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         /* Hover effects with glow */
@@ -109,9 +148,10 @@
         }
 
         .hover-glow:hover {
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-4px) scale(1.02);
-            border-color: rgba(14, 184, 166, 0.3);
+            box-shadow: var(--shadow-glow), var(--shadow-neon);
+            transform: translateY(-5px) scale(1.03);
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .project-card {
@@ -147,9 +187,10 @@
         }
 
         .skill-card:hover {
-            box-shadow: 0 15px 45px rgba(30, 58, 138, 0.3);
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: var(--shadow-glow), var(--shadow-neon);
             transform: translateY(-6px) scale(1.05);
-            border-color: rgba(30, 58, 138, 0.4);
+            border-color: rgba(0, 212, 255, 0.4);
         }
 
         /* QR Code styling */
@@ -163,7 +204,7 @@
 
         /* Premium buttons */
         .premium-btn {
-            background: linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-secondary) 100%);
+            background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 50%, var(--neon-green) 100%);
             border: none;
             border-radius: 16px;
             padding: 16px 32px;
@@ -171,10 +212,10 @@
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(14, 184, 166, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.4);
         }
 
         .premium-btn::before {
@@ -184,7 +225,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s;
         }
 
@@ -193,8 +234,8 @@
         }
 
         .premium-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(14, 184, 166, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.6), 0 0 20px rgba(191, 0, 255, 0.4);
         }
 
         /* Typography enhancements */
@@ -226,6 +267,7 @@
             }
             
             .skill-card:hover {
+                background: rgba(0, 0, 0, 0.8);
                 transform: translateY(-3px) scale(1.03);
             }
         }
@@ -247,8 +289,51 @@
     </style>
 </head>
 <body class="gradient-bg min-h-screen text-white">
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <img src="barzin-crypto-logo-new.png" alt="Logo" class="w-24 h-24 object-contain">
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-premium hover:text-accent transition-colors font-medium">About</a>
+                    <a href="#skills" class="text-premium hover:text-accent transition-colors font-medium">Skills</a>
+                    <a href="#projects" class="text-premium hover:text-accent transition-colors font-medium">Projects</a>
+                    <a href="#contact" class="text-premium hover:text-accent transition-colors font-medium">Contact</a>
+                    <a href="tel:6473390222" class="premium-btn px-6 py-2 text-sm">
+                        Call Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden glass p-2 rounded-xl" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6 text-premium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden mt-4 glass p-6 rounded-2xl hidden">
+                <div class="flex flex-col gap-4">
+                    <a href="#about" class="text-premium hover:text-accent transition-colors font-medium py-2">About</a>
+                    <a href="#skills" class="text-premium hover:text-accent transition-colors font-medium py-2">Skills</a>
+                    <a href="#projects" class="text-premium hover:text-accent transition-colors font-medium py-2">Projects</a>
+                    <a href="#contact" class="text-premium hover:text-accent transition-colors font-medium py-2">Contact</a>
+                    <a href="tel:6473390222" class="premium-btn px-6 py-3 text-center">
+                        Call Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <!-- Header / Hero Section -->
-    <header class="relative overflow-hidden fade-in">
+    <header id="home" class="relative overflow-hidden fade-in pt-20">
         <div class="absolute inset-0 bg-gradient-to-br from-teal-900/20 via-blue-900/10 to-transparent"></div>
         <div class="relative z-10 container mx-auto px-6 py-20">
             <div class="glass p-12 md:p-16 max-w-7xl mx-auto">
@@ -257,35 +342,40 @@
                     <div class="flex-1 text-center lg:text-left">
                         <!-- Main Logo -->
                         <div class="flex justify-center lg:justify-start mb-8">
-                            <div class="glass p-4 rounded-2xl hover-glow">
-                                <img src="barzin-crypto-logo-new.png" alt="Barzin Crypto" class="w-28 h-28 object-contain">
-                            </div>
                         </div>
                         
-                        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                            <span class="text-gradient">Hamidreza Barzin</span>
-                        </h1>
-                        <h2 class="text-2xl md:text-3xl text-premium mb-4 font-medium">Founder & CEO</h2>
-                        
-                        <!-- Company Holdings with Logos -->
-                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-6 mb-8">
-                            <div class="glass px-4 py-3 rounded-xl flex items-center gap-3 hover-glow">
-                                <img src="Topping-Courier-PNG_070319.png" alt="Topping Courier" class="w-10 h-10 object-contain">
-                                <span class="text-lg text-premium font-semibold">Topping Courier Inc.</span>
-                            </div>
-                            <div class="w-1 h-1 bg-teal-400 rounded-full"></div>
-                            <div class="glass px-4 py-3 rounded-xl flex items-center gap-3 hover-glow">
-                                <img src="HM-200200.png" alt="Hyper Minds" class="w-10 h-10 object-contain">
-                                <span class="text-lg text-premium font-semibold">Hyper Minds</span>
-                            </div>
-                            <div class="w-1 h-1 bg-teal-400 rounded-full"></div>
-                            <div class="glass px-4 py-3 rounded-xl flex items-center gap-3 hover-glow">
-                                <img src="barzin-crypto-logo-new.png" alt="Barzin Crypto" class="w-10 h-10 object-contain">
-                                <span class="text-lg text-premium font-semibold">Barzin Crypto</span>
+                        <!-- Barzin Holding Portfolio -->
+                        <div class="mb-12">
+                            <h3 class="text-2xl font-bold text-white mb-6 text-center lg:text-left">Barzin Holding Portfolio</h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <a href="https://toppingcourier.ca" target="_blank" class="glass p-6 rounded-2xl hover-glow group">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <img src="Topping-Courier-PNG_070319.png" alt="Topping Courier" class="w-12 h-12 object-contain">
+                                        <div>
+                                            <h4 class="text-xl font-bold text-white group-hover:text-accent transition-colors">Topping Courier Inc.</h4>
+                                            <p class="text-premium text-sm">North American Logistics Division</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-accent text-sm">Advanced courier and freight forwarding services across Canada and North America</p>
+                                </a>
+                                
+                                <a href="https://hyperminds.ca" target="_blank" class="glass p-6 rounded-2xl hover-glow group">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <img src="HM-200200.png" alt="Hyper Minds" class="w-12 h-12 object-contain">
+                                        <div>
+                                            <h4 class="text-xl font-bold text-white group-hover:text-accent transition-colors">Hyper Minds</h4>
+                                            <p class="text-premium text-sm">AI Technology Division</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-accent text-sm">AI-powered logistics platforms and digital freight solutions for global markets</p>
+                                </a>
                             </div>
                         </div>
-                        <p class="text-2xl text-accent italic mb-10 font-light leading-relaxed">
-                            "Innovating Logistics, IT & AI Solutions Worldwide"
+                        <p class="text-3xl text-white font-bold mb-8 leading-tight">
+                            "Building the Future of Global Business"
+                        </p>
+                        <p class="text-xl text-premium mb-10 font-medium">
+                            Visionary Leader • Global Entrepreneur • Technology Innovator
                         </p>
                         
                         <!-- Contact Quick Links -->
@@ -321,42 +411,47 @@
                         </div>
                     </div>
                     
-                    <!-- QR Code -->
-                    <div class="flex-shrink-0">
-                        <div class="glass p-8 text-center hover-glow">
-                            <h3 class="text-xl font-semibold mb-6 text-premium">Scan for Contact Info</h3>
-                            <div id="qr-code" class="qr-code inline-block"></div>
-                            <p class="text-sm text-accent mt-4 font-medium">vCard + Project Links</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- About Section -->
-    <section class="py-20 px-6 fade-in">
+    <section id="about" class="py-20 px-6">
         <div class="container mx-auto max-w-6xl">
             <div class="glass p-12 md:p-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center">
-                    <span class="text-gradient">About Me</span>
+                <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center">
+                    <span class="text-gradient">Global Visionary</span>
                 </h2>
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="glass p-8 rounded-2xl hover-glow">
-                        <h3 class="text-2xl font-semibold mb-6 text-premium">Professional Journey</h3>
-                        <p class="text-premium leading-relaxed text-lg">
-                            Entrepreneur with 30+ years of experience in business and marketing, 
-                            combined with IT engineering expertise and specialized knowledge in 
-                            logistics operations across Canada. Passionate about leveraging 
-                            technology to solve real-world business challenges.
+                <div class="text-center mb-16">
+                    <p class="text-2xl text-white font-bold mb-6">"Building Global Logistics Ecosystems"</p>
+                    <p class="text-xl text-premium max-w-5xl mx-auto leading-relaxed">
+                        Founder & CEO of Barzin Holding, an international logistics and technology company. 
+                        A visionary leader with 30+ years of entrepreneurial excellence, combining technical expertise 
+                        with business acumen to revolutionize global trade through AI-driven logistics platforms 
+                        and innovative supply chain solutions.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass p-8 rounded-2xl hover-glow text-center">
+                        <div class="text-4xl font-bold text-accent mb-4">30+</div>
+                        <h3 class="text-xl font-semibold mb-4 text-white">Years of Excellence</h3>
+                        <p class="text-premium leading-relaxed">
+                            Three decades of building and scaling global businesses across multiple industries
                         </p>
                     </div>
-                    <div class="glass p-8 rounded-2xl hover-glow">
-                        <h3 class="text-2xl font-semibold mb-6 text-premium">Vision 2029</h3>
-                        <p class="text-premium leading-relaxed text-lg">
-                            My ambitious goal is to establish Topping Courier as one of the 
-                            top North American logistics brands, revolutionizing the industry 
-                            through innovative technology solutions and exceptional service delivery.
+                    <div class="glass p-8 rounded-2xl hover-glow text-center">
+                        <div class="text-4xl font-bold text-accent mb-4">$50M+</div>
+                        <h3 class="text-xl font-semibold mb-4 text-white">Global Impact</h3>
+                        <p class="text-premium leading-relaxed">
+                            Combined enterprise value across international holdings and technology ventures
+                        </p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl hover-glow text-center">
+                        <div class="text-4xl font-bold text-accent mb-4">5+</div>
+                        <h3 class="text-xl font-semibold mb-4 text-white">Continents</h3>
+                        <p class="text-premium leading-relaxed">
+                            Strategic operations spanning North America, Europe, Asia, and emerging markets
                         </p>
                     </div>
                 </div>
@@ -365,32 +460,32 @@
     </section>
 
     <!-- Skills / Expertise Section -->
-    <section class="py-20 px-6 fade-in">
+    <section id="skills" class="py-20 px-6 fade-in">
         <div class="container mx-auto max-w-7xl">
             <div class="glass p-12 md:p-16">
                 <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">
-                    <span class="text-gradient">Skills & Expertise</span>
+                    <span class="text-gradient">Core Competencies</span>
                 </h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="glass p-8 text-center skill-card rounded-2xl">
-                        <div class="text-6xl mb-6">🚚</div>
-                        <h3 class="text-xl font-semibold mb-4 text-premium">Logistics & Freight</h3>
-                        <p class="text-premium leading-relaxed">30+ years of expertise in freight forwarding and supply chain management</p>
+                    <div class="glass p-8 text-center skill-card rounded-2xl hover-glow">
+                        <div class="text-6xl mb-6">🎓</div>
+                        <h3 class="text-xl font-semibold mb-4 text-white">Barzin Education Excellence</h3>
+                        <p class="text-secondary leading-relaxed text-sm">BSc Accounting from Tehran University (1990), MBM & DBN Postgraduate degrees, Logistics Diploma from Anderson College Canada, CIFFA Certified Professional</p>
                     </div>
-                    <div class="glass p-8 text-center skill-card rounded-2xl">
+                    <div class="glass p-8 text-center skill-card rounded-2xl hover-glow">
                         <div class="text-6xl mb-6">💻</div>
-                        <h3 class="text-xl font-semibold mb-4 text-premium">IT & Software Dev</h3>
-                        <p class="text-premium leading-relaxed">Full-stack development and enterprise software solutions</p>
+                        <h3 class="text-xl font-semibold mb-4 text-white">Barzin Tech Innovation</h3>
+                        <p class="text-secondary leading-relaxed text-sm">Full-Stack Engineering expertise in advanced software systems, AI-powered solutions, and automation tools for Barzin Holding logistics platforms</p>
                     </div>
-                    <div class="glass p-8 text-center skill-card rounded-2xl">
-                        <div class="text-6xl mb-6">🤖</div>
-                        <h3 class="text-xl font-semibold mb-4 text-premium">AI & Crypto Dashboards</h3>
-                        <p class="text-premium leading-relaxed">Advanced AI bots and cryptocurrency analytics platforms</p>
+                    <div class="glass p-8 text-center skill-card rounded-2xl hover-glow">
+                        <div class="text-6xl mb-6">🌐</div>
+                        <h3 class="text-xl font-semibold mb-4 text-white">Barzin Global Network</h3>
+                        <p class="text-secondary leading-relaxed text-sm">International freight forwarding and supply chain optimization across Barzin Holding's global network spanning Canada, Middle East, Europe, and Asia</p>
                     </div>
-                    <div class="glass p-8 text-center skill-card rounded-2xl">
-                        <div class="text-6xl mb-6">🌍</div>
-                        <h3 class="text-xl font-semibold mb-4 text-premium">Global Entrepreneurship</h3>
-                        <p class="text-premium leading-relaxed">Building and scaling businesses across international markets</p>
+                    <div class="glass p-8 text-center skill-card rounded-2xl hover-glow">
+                        <div class="text-6xl mb-6">🚀</div>
+                        <h3 class="text-xl font-semibold mb-4 text-white">Barzin Visionary Leadership</h3>
+                        <p class="text-secondary leading-relaxed text-sm">30+ years in business & marketing, driving innovation in logistics through AI platforms and revolutionizing global trade with Barzin Holding</p>
                     </div>
                 </div>
             </div>
@@ -398,7 +493,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section class="py-20 px-6 fade-in">
+    <section id="projects" class="py-20 px-6 fade-in">
         <div class="container mx-auto max-w-7xl">
             <div class="glass p-12 md:p-16">
                 <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">
@@ -447,7 +542,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="py-20 px-6 fade-in">
+    <section id="contact" class="py-20 px-6 fade-in">
         <div class="container mx-auto max-w-6xl">
             <div class="glass p-12 md:p-16">
                 <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">
@@ -517,36 +612,109 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <div class="glass p-8 rounded-2xl hover-glow inline-block">
-                            <h3 class="text-xl font-semibold mb-6 text-premium">Quick Contact</h3>
-                            <div id="qr-code-contact" class="qr-code inline-block"></div>
-                            <p class="text-accent mt-4 font-medium">Scan for vCard</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-white/10">
-        <div class="container mx-auto text-center">
-            <div class="glass p-8 rounded-2xl max-w-4xl mx-auto">
-                <p class="text-premium text-lg">
-                    © 2024 Hamidreza Barzin. All rights reserved. | 
-                    <span class="text-gradient font-bold text-xl">Innovating the Future</span>
-                </p>
+    <footer class="py-16 px-6 border-t border-white/10">
+        <div class="container mx-auto max-w-7xl">
+            <div class="glass p-12 rounded-2xl">
+                <div class="grid md:grid-cols-4 gap-8 mb-8">
+                    <!-- Company Info -->
+                    <div class="md:col-span-2">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="glass p-2 rounded-xl">
+                                <img src="barzin-crypto-logo-new.png" alt="Barzin Crypto" class="w-8 h-8 object-contain">
+                            </div>
+                            <h3 class="text-xl font-bold text-gradient">CEO & Founder</h3>
+                        </div>
+                        <p class="text-premium mb-4 leading-relaxed">
+                            CEO & Founder of multiple successful ventures in logistics, IT, and AI solutions. 
+                            Passionate about innovation and building the future of business technology.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="https://toppingcourier.ca" target="_blank" class="glass p-3 rounded-xl hover-glow">
+                                <img src="Topping-Courier-PNG_070319.png" alt="Topping Courier" class="w-6 h-6 object-contain">
+                            </a>
+                            <a href="https://hyperminds.ca" target="_blank" class="glass p-3 rounded-xl hover-glow">
+                                <img src="HM-200200.png" alt="Hyper Minds" class="w-6 h-6 object-contain">
+                            </a>
+                            <a href="#" class="glass p-3 rounded-xl hover-glow">
+                                <img src="barzin-crypto-logo-new.png" alt="Barzin Crypto" class="w-6 h-6 object-contain">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-premium mb-4">Quick Links</h4>
+                        <div class="space-y-2">
+                            <a href="#about" class="block text-premium hover:text-accent transition-colors">About Me</a>
+                            <a href="#skills" class="block text-premium hover:text-accent transition-colors">Skills</a>
+                            <a href="#projects" class="block text-premium hover:text-accent transition-colors">Projects</a>
+                            <a href="#contact" class="block text-premium hover:text-accent transition-colors">Contact</a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-premium mb-4">Contact</h4>
+                        <div class="space-y-2">
+                            <p class="text-premium text-sm">📞 (647) 339-0222</p>
+                            <p class="text-premium text-sm">✉️ info@toppingcourier.ca</p>
+                            <p class="text-premium text-sm">🌍 Toronto, ON, Canada</p>
+                            <a href="https://toppingcourier.ca" target="_blank" class="text-accent text-sm hover:text-teal-300">🌐 toppingcourier.ca</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Bar -->
+                <div class="border-t border-white/10 pt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p class="text-premium">
+                            © 2024 All rights reserved.
+                        </p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-premium">Powered by</span>
+                            <span class="text-gradient font-bold">Innovation</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
         // Generate QR Code with vCard data
         function generateQRCode() {
             const vCardData = `BEGIN:VCARD
 VERSION:3.0
-FN:Hamidreza Barzin
+FN:CEO & Founder
 ORG:Topping Courier Inc.; Hyper Minds; Barzin Crypto
 TITLE:Founder & CEO
 TEL:6473390222
@@ -582,16 +750,6 @@ END:VCARD`;
 
         // Initialize QR codes when page loads
         document.addEventListener('DOMContentLoaded', generateQRCode);
-
-        // Add smooth scrolling for better UX
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
     </script>
 </body>
 </html>
